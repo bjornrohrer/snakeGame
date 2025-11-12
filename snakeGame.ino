@@ -1,36 +1,21 @@
-/*
- * Snake Spil til Arduino med 8x8 LED Matrix og Joystick
- * MED INTERRUPT BUTTON TIL START/PAUSE
- * 
- * Hardware:
- * - Arduino Uno
- * - MAX7219 8x8 LED Matrix
- * - Analog Joystick Modul
- * - Push Button (til start/pause)
- * 
- * Forbindelser:
- * MAX7219: DIN->12, CLK->11, CS->10, VCC->5V, GND->GND
- * Joystick: VRx->A3, VRy->A1, SW->2, VCC->5V, GND->GND
- * Button: One side->Pin 3, Same side->GND
- */
-
+// Import of LedControl library
 #include <LedControl.h>
 
-// MAX7219 pins
-#define DIN_PIN 12
-#define CLK_PIN 11
-#define CS_PIN 10
+// Initialized pins 
+#define DIN_PIN 12 // Data
+#define CLK_PIN 11 // CLock 
+#define CS_PIN 10 // Chip select
 
 // Joystick pins
 #define JOY_X A3
 #define JOY_Y A1
-#define JOY_SW 2
+#define JOY_SW 2 // Switch
 
 // Start/Pause button pin
 #define START_BUTTON 3
 
-// Spil konstanter
-#define MATRIX_SIZE 8
+// Game constants
+#define MATRIX_SIZE 8 // Screen size 
 #define GAME_SPEED 350
 #define MAX_SNAKE_LENGTH 64
 
@@ -44,17 +29,17 @@ int snakeLength = 2;
 int dirX = 1;
 int dirY = 0;
 
-// Mad position
+// Food position
 int foodX, foodY;
 
-// Spil state
+// Game state
 bool gameOver = false;
 bool gamePaused = false;
 unsigned long lastUpdate = 0;
 int score = 0;
 
 // Interrupt flag
-volatile bool buttonPressed = false;
+bool buttonPressed = false;
 
 void setup() {
   Serial.begin(9600);
