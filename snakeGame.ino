@@ -301,3 +301,5 @@ void showPauseIndicator() {
     lc.clearDisplay(0);
   }
 }
+
+// hilsen bj'rn
