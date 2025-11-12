@@ -287,4 +287,4 @@ void showPauseIndicator() {
   }
 }
 
-// hilsen bj'rn
+// hilsen bj'rn 
