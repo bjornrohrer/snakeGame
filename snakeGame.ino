@@ -42,8 +42,6 @@ int score = 0;
 bool buttonPressed = false;
 
 void setup() {
-  Serial.begin(9600);
-  
   // Initialize LED Matrix
   lc.shutdown(0, false);      // Wake up display
   lc.setIntensity(0, 8);      // Sæt lysstyrke (0-15)
@@ -60,8 +58,6 @@ void setup() {
   randomSeed(analogRead(A2));  // Random seed fra ubrugt analog pin
   initGame();
   
-  Serial.println("Snake spil klar!");
-  Serial.println("Tryk på knappen for at starte/pause");
 }
 
 void loop() {
@@ -139,12 +135,6 @@ void initGame() {
   
   // Spawn første mad
   spawnFood();
-  
-  Serial.print("Spil initialiseret. Start position: (");
-  Serial.print(startX);
-  Serial.print(", ");
-  Serial.print(startY);
-  Serial.println(")");
 }
 
 void readJoystick() {
@@ -182,9 +172,6 @@ void updateGame() {
   if (newHeadX < 0 || newHeadX >= MATRIX_SIZE || 
       newHeadY < 0 || newHeadY >= MATRIX_SIZE) {
     gameOver = true;
-    Serial.println("Game Over! Ramte væg.");
-    Serial.print("Final Score: ");
-    Serial.println(score);
     return;
   }
   
@@ -192,9 +179,6 @@ void updateGame() {
   for (int i = 1; i < snakeLength; i++) {
     if (snakeX[i] == newHeadX && snakeY[i] == newHeadY) {
       gameOver = true;
-      Serial.println("Game Over! Ramte dig selv.");
-      Serial.print("Final Score: ");
-      Serial.println(score);
       return;
     }
   }
@@ -213,8 +197,6 @@ void updateGame() {
   if (newHeadX == foodX && newHeadY == foodY) {
     snakeLength++;
     score++;
-    Serial.print("Mad spist! Score: ");
-    Serial.println(score);
     spawnFood();
   }
 }
@@ -253,12 +235,6 @@ void spawnFood() {
       }
     }
   }
-  
-  Serial.print("Mad spawnet ved: (");
-  Serial.print(foodX);
-  Serial.print(", ");
-  Serial.print(foodY);
-  Serial.println(")");
 }
 
 void showGameOver() {
@@ -286,5 +262,3 @@ void showPauseIndicator() {
     lc.clearDisplay(0);
   }
 }
-
-// hilsen bj'rn
